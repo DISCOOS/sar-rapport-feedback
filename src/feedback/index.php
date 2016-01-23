@@ -114,14 +114,17 @@ function filter_post($name, $filter = FILTER_DEFAULT) {
 <html>
 <head>
     <title>SAR-rapport - tilbakemelding</title>
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <script src="../js/bootstrap.js" type="javascript" ></script>
 </head>
+
 <body>
 <form class="form-horizontal" role="form" method="post" action="index.php">
     <div class="form-group">
         <label for="name" class="col-sm-2 control-label">Emne</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" id="subject" name="subject" placeholder="Kort beskrivende tekst" value="<?php echo $subject; ?>">
-            <?php echo "<p class='text-danger'>$errSubject</p>";?>
+            <?php if(isset($errSubject)){echo "<p class='text-danger'>$errSubject</p>";}?>
         </div>
     </div>
     <div class="form-group">
@@ -133,35 +136,35 @@ function filter_post($name, $filter = FILTER_DEFAULT) {
                 <option value="2">Spørsmål</option>
                 <option value="3">Forslag</option>
             </select>
-            <?php echo "<p class='text-danger'>$errType</p>";?>
+            <?php if(isset($errType)){echo "<p class='text-danger'>$errType</p>";}?>
         </div>
     </div>
     <div class="form-group">
         <label for="description" class="col-sm-2 control-label">Beskrivelse</label>
         <div class="col-sm-10">
             <textarea class="form-control" rows="4" id="description" name="description"><?php echo $description;?></textarea>
-            <?php echo "<p class='text-danger'>$errDesc</p>";?>
+            <?php if(isset($errDesc)){echo "<p class='text-danger'>$errDesc</p>";}?>
         </div>
     </div>
     <div class="form-group">
         <label for="name" class="col-sm-2 control-label">Navn</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" id="name" name="name" placeholder="Ditt navn" value="<?php echo $name; ?>">
-            <?php echo "<p class='text-danger'>$errName</p>";?>
+            <?php if(isset($errName)){echo "<p class='text-danger'>$errName</p>";}?>
         </div>
     </div>
     <div class="form-group">
         <label for="email" class="col-sm-2 control-label">Email</label>
         <div class="col-sm-10">
             <input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" value="<?php echo $email; ?>">
-            <?php echo "<p class='text-danger'>$errEmail</p>";?>
+            <?php if(isset($errEmail)){echo "<p class='text-danger'>$errEmail</p>";}?>
         </div>
     </div>
     <div class="form-group">
         <label for="human" class="col-sm-2 control-label">2 + 3 = ?</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" id="human" name="human" placeholder="Ditt svar" value="<?php echo $human; ?>">
-            <?php echo "<p class='text-danger'>$errHuman</p>";?>
+            <?php if(isset($errHuman)){echo "<p class='text-danger'>$errHuman</p>";}?>
         </div>
     </div>
     <div class="form-group">
