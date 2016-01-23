@@ -111,74 +111,149 @@ function filter_post($name, $filter = FILTER_DEFAULT) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
     <title>SAR-rapport - tilbakemelding</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <link href="../css/bootstrap.css" rel="stylesheet">
     <script src="../js/bootstrap.js" type="javascript" ></script>
 </head>
 
 <body>
-<form class="form-horizontal" role="form" method="post" action="index.php">
-    <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Emne</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="subject" name="subject" placeholder="Kort beskrivende tekst" value="<?php echo $subject; ?>">
-            <?php if(isset($errSubject)){echo "<p class='text-danger'>$errSubject</p>";}?>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Start Bootstrap</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-    </div>
-    <div class="form-group">
-        <label for="type" class="col-sm-2 control-label" value="<?php echo $type; ?>">Tilbakemelding</label>
-        <div class="col-md-2">
-            <select id="type" name="type" class="form-control">
-                <option value="0"></option>
-                <option value="1">Feil</option>
-                <option value="2">Spørsmål</option>
-                <option value="3">Forslag</option>
-            </select>
-            <?php if(isset($errType)){echo "<p class='text-danger'>$errType</p>";}?>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="description" class="col-sm-2 control-label">Beskrivelse</label>
-        <div class="col-sm-10">
-            <textarea class="form-control" rows="4" id="description" name="description"><?php echo $description;?></textarea>
-            <?php if(isset($errDesc)){echo "<p class='text-danger'>$errDesc</p>";}?>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Navn</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="name" name="name" placeholder="Ditt navn" value="<?php echo $name; ?>">
-            <?php if(isset($errName)){echo "<p class='text-danger'>$errName</p>";}?>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="email" class="col-sm-2 control-label">Email</label>
-        <div class="col-sm-10">
-            <input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" value="<?php echo $email; ?>">
-            <?php if(isset($errEmail)){echo "<p class='text-danger'>$errEmail</p>";}?>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="human" class="col-sm-2 control-label">2 + 3 = ?</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="human" name="human" placeholder="Ditt svar" value="<?php echo $human; ?>">
-            <?php if(isset($errHuman)){echo "<p class='text-danger'>$errHuman</p>";}?>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-10 col-sm-offset-2">
-            <input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-10 col-sm-offset-2">
-            <?php echo $result; ?>
-        </div>
-    </div>
-</form>
+        <!-- /.container -->
+    </nav>
 
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Jumbotron Header -->
+        <header class="jumbotron hero-spacer">
+            <h1>Vi ønsker tilbakemeldinger!</h1>
+            <p>På denne siden kan du rapportere feil og komme med forslag til forbedringer av SAR-rapport</p>
+        </header>
+
+        <hr>
+
+        <!-- Title -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Latest Features</h3>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Page Features -->
+        <div class="row text-center">
+            <!-- Feedback form -->
+            <form class="form-horizontal" role="form" method="post" action="index.php">
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">Emne</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Kort beskrivende tekst" value="<?php echo $subject; ?>">
+                        <?php if(isset($errSubject)){echo "<p class='text-danger'>$errSubject</p>";}?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="type" class="col-sm-2 control-label" value="<?php echo $type; ?>">Tilbakemelding</label>
+                    <div class="col-md-2">
+                        <select id="type" name="type" class="form-control">
+                            <option value="0"></option>
+                            <option value="1">Feil</option>
+                            <option value="2">Spørsmål</option>
+                            <option value="3">Forslag</option>
+                        </select>
+                        <?php if(isset($errType)){echo "<p class='text-danger'>$errType</p>";}?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description" class="col-sm-2 control-label">Beskrivelse</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="4" id="description" name="description"><?php echo $description;?></textarea>
+                        <?php if(isset($errDesc)){echo "<p class='text-danger'>$errDesc</p>";}?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">Navn</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Ditt navn" value="<?php echo $name; ?>">
+                        <?php if(isset($errName)){echo "<p class='text-danger'>$errName</p>";}?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" value="<?php echo $email; ?>">
+                        <?php if(isset($errEmail)){echo "<p class='text-danger'>$errEmail</p>";}?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="human" class="col-sm-2 control-label">2 + 3 = ?</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="human" name="human" placeholder="Ditt svar" value="<?php echo $human; ?>">
+                        <?php if(isset($errHuman)){echo "<p class='text-danger'>$errHuman</p>";}?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <?php echo $result; ?>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
 
 </body>
 </html>
