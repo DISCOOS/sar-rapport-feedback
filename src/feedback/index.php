@@ -67,7 +67,8 @@ function taiga_login() {
     curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
     $user = curl_exec($process);
     if($user !== FALSE) {
-        $user = json_decode($user, true)['auth_token'];
+        $user = json_decode($user, true);
+        $user = $user['auth_token'];
 
     }
     curl_close($process);
@@ -92,7 +93,8 @@ function taiga_create_issue($auth) {
     curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
     $issue = curl_exec($process);
     if($issue !== FALSE) {
-        $issue = json_decode($issue, true)['id'];
+        $issue = json_decode($issue, true);
+        $issue = $issue['id'];
 
     }
     curl_close($process);
