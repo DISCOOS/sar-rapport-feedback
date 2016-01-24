@@ -2,7 +2,7 @@
 
 require 'taiga.php';
 
-// Initalize
+// Initialize
 $type = 0;
 $types = array('id' => 0, 'name' => '');
 
@@ -168,7 +168,7 @@ if($auth = taiga_login()) {
                     <label for="type" class="col-sm-2 control-label">Tilbakemelding</label>
 
                     <div class="col-sm-10">
-                        <!-- Id's collected from https://tree.taiga.io/project/username-sar-rapport/admin/project-values/types -->
+                        <!-- Id's collected from https://tree.taiga.io/project/kengu-sar-rapport/admin/project-values/types -->
                         <select id="type" name="type" class="form-control">
                         <?php foreach($types as $item) { ?>
                             <option value="$type" <?php if ($type === $item['id']) {
