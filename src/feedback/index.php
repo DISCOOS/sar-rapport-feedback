@@ -5,17 +5,21 @@ require 'taiga.php';
 // Initialize
 $type = 0;
 $types[] = array('id' => 0, 'name' => '');
+$level = 0;
+$levels[] = array('id' => 0, 'name' => '');
 
 // Get information from Taiga
 if($auth = taiga_login()) {
 
     $types = array_merge($types, taiga_get_issue_types($auth));
+    $levels = array_merge($levels, taiga_get_severity_levels($auth));
 
     if (isset($_POST["submit"])) {
         $name = isset_get($_POST, 'name');
         $email = isset_get($_POST, 'email');
         $subject = isset_get($_POST, 'subject');
         $type = intval(isset_get($_POST, 'type'));
+        $level = intval(isset_get($_POST, 'level'));
         $description = isset_get($_POST, 'description');
         $human = isset_get($_POST, 'human');
 
@@ -34,6 +38,11 @@ if($auth = taiga_login()) {
             $errType = 'Velg type tilbakemelding';
         }
 
+        // Check if severity level has been selected
+        if (!$level) {
+            $errLevel = 'Velg alvorlighetsgrad';
+        }
+
         // Check if name has been entered
         if (!$name) {
             $errName = 'Skriv inn ditt navn';
@@ -50,7 +59,7 @@ if($auth = taiga_login()) {
         }
 
         // If there are no errors, send the email
-        if (!$errSubject && !$errDesc && !$errType && !$errName && !$errEmail && !$errHuman) {
+        if (!$errSubject && !$errDesc && !$errType && !$errLevel && !$errName && !$errEmail && !$errHuman) {
             if (isset($_GET['id'])) {
                 $issue = taiga_edit_issue($auth, $_GET['id']);
             } else {
@@ -64,7 +73,7 @@ if($auth = taiga_login()) {
                 }
             }
         }
-        if (!isset($result) && !($errSubject || $errDesc || $errType || $errName || $errEmail || $errHuman)) {
+        if (!isset($result) && !($errSubject || $errDesc || $errType || $errLevel || $errName || $errEmail || $errHuman)) {
             $result = '<div class="alert alert-danger">Beklager, din henvendelse kunne ikke registres.</div>';
         }
     } else {
@@ -166,10 +175,9 @@ if($auth = taiga_login()) {
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="type" class="col-sm-2 control-label">Tilbakemelding</label>
+                    <label for="type" class="col-sm-2 control-label">Type</label>
 
-                    <div class="col-sm-10">
-                        <!-- Id's collected from https://tree.taiga.io/project/kengu-sar-rapport/admin/project-values/types -->
+                    <div class="col-sm-4">
                         <select id="type" name="type" class="form-control" <? if(!$auth) { echo "disabled"; }?>>
                         <?php foreach($types as $item) { ?>
                             <option value="<?=$type?>" <?php if ($type === $item['id']) { echo("selected");}?>> <?php echo $item['name']; ?></option>
@@ -177,6 +185,18 @@ if($auth = taiga_login()) {
                         </select>
                         <?php if (isset($errType)) {
                             echo "<p class='text-danger'>$errType</p>";
+                        } ?>
+                    </div>
+                    <label for="type" class="col-sm-2 control-label">alvorlighetsgrad</label>
+
+                    <div class="col-sm-4">
+                        <select id="level" name="level" class="form-control" <? if(!$auth) { echo "disabled"; }?>>
+                            <?php foreach($levels as $item) { ?>
+<option value="<?=$level?>" <?php if ($level === $item['id']) { echo("selected");}?>> <?php echo $item['name']; ?></option>
+                            <?php } ?>
+                        </select>
+                        <?php if (isset($errLevel)) {
+                            echo "<p class='text-danger'>$errLevel</p>";
                         } ?>
                     </div>
                 </div>

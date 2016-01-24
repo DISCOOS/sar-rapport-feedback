@@ -74,6 +74,27 @@ function taiga_get_issue_types($auth) {
     return $types;
 }
 
+function taiga_get_severity_levels($auth) {
+    $process = curl_init(HOST . 'severities?project=' . PROJECT);
+    curl_setopt(
+        $process,
+        CURLOPT_HTTPHEADER,
+        array(
+            'Content-Type: application/json; charset=utf-8',
+            "Authorization: Bearer $auth"
+        )
+    );
+
+    curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
+    $levels = curl_exec($process);
+    if ($levels !== false) {
+        $levels = json_decode($levels, true);
+    }
+    curl_close($process);
+
+    return $levels;
+}
+
 function taiga_create_issue($auth)
 {
 
@@ -93,6 +114,7 @@ function taiga_create_issue($auth)
             array(
                 'project' => PROJECT,
                 'type' => filter_post('type', FILTER_VALIDATE_INT),
+                'severity' => filter_post('severity', FILTER_VALIDATE_INT),
                 'subject' => filter_post('subject'),
                 'description' => filter_post('description'),
                 'reporter_name' => filter_post('name'),
@@ -160,6 +182,7 @@ function taiga_edit_issue($auth, $id)
                 array(
                     'project' => PROJECT,
                     'type' => filter_post('type', FILTER_VALIDATE_INT),
+                    'severity' => filter_post('severity', FILTER_VALIDATE_INT),
                     'subject' => filter_post('subject'),
                     'description' => filter_post('description'),
                     'version' => $version
