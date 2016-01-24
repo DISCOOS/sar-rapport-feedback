@@ -10,6 +10,8 @@ $levels[] = array('id' => 0, 'name' => '');
 
 $status = array('id' => 0, 'name' => 'Ny');
 
+$comments = array();
+
 // Get information from Taiga
 if($auth = taiga_login()) {
 
@@ -84,14 +86,15 @@ if($auth = taiga_login()) {
                 $subject = isset_get($issue, 'subject');
                 $type = isset_get($issue, 'type');
                 $status = isset_get($issue, 'status_extra_info');
-		$assigned = isset_get($issue, 'assigned_to_extra_info');
-		$level = isset_get($issue, 'severity');
+		        $assigned = isset_get($issue, 'assigned_to_extra_info');
+		        $level = isset_get($issue, 'severity');
                 $description = isset_get($issue, 'description');
                 if ($attrs = taiga_get_issue_attributes($auth, $_GET['id'])) {
                     $attrs = $attrs['attributes_values'];
                     $name = isset_get($attrs, '1164');
                     $email = isset_get($attrs, '1165');
                 }
+                $comments = taiga_get_issue_comments($auth, $_GET['id']);
             }
         }
     }
@@ -138,7 +141,7 @@ if($auth = taiga_login()) {
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="https://www.korsveien.no" target="_blank">Korsveien</a>
+                    <a href="https://www.korsveien.no/sites/hjkaksjonsrapportering/default.aspx" target="_blank">Korsveien</a>
                 </li>
                 <li>
                     <a href="http://www.hjelpekorps.org" target="_blank">Norges Røde Kors Hjelpekorps</a>
@@ -259,7 +262,13 @@ if($auth = taiga_login()) {
                         <?php echo $result; ?>
                     </div>
                 </div>
-
+                <? if(!empty($comments )) { ?>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <?foreach($comments as $comment) { var_dump($comment); }?>
+                    </div>
+                </div>
+                <? } ?>
             </div>
             <div class="panel-footer">
                 <div class="form-group">

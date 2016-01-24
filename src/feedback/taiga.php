@@ -272,6 +272,38 @@ function taiga_edit_issue_attributes($auth, $id)
     return $attributes;
 }
 
+function taiga_get_issue_comments($auth, $id)
+{
+    $process = curl_init(HOST . "issue/history/$id");
+    curl_setopt(
+        $process,
+        CURLOPT_HTTPHEADER,
+        array(
+            'Content-Type: application/json; charset=utf-8',
+            "Authorization: Bearer $auth"
+        )
+    );
+
+    curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
+    $comments = curl_exec($process);
+    if ($comments !== false) {
+        $history = json_decode($comments, true);
+        $comments = array();
+        foreach($history as $comment) {
+            if(!empty($comment['comment_html'])) {
+                $comments[] = array(
+                    'html' => $comment['comment_html'],
+                    'user' => $comment['user']['name'],
+                    'created' => date($comment['created_at'])
+                );
+            }
+        }
+    }
+    curl_close($process);
+
+    return $comments;
+
+}
 
 function isset_get($array, $name, $default = false)
 {
