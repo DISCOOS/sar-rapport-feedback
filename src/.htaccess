@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+    
+    RewriteEngine on
+
+    RewriteCond %{SCRIPT_FILENAME} !-d
+    RewriteCond %{SCRIPT_FILENAME} !-f
+    RewriteRule ^feedback/?(.*)$ feedback/index.php?id=$1 [L,QSA]
+
+</IfModule>
