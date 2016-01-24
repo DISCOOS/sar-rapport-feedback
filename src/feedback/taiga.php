@@ -174,7 +174,7 @@ function taiga_edit_issue($auth, $id)
                 "Authorization: Bearer $auth"
             )
         );
-        curl_setopt($process, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($process, CURLOPT_CUSTOMREQUEST, "PATCH");
         curl_setopt(
             $process,
             CURLOPT_POSTFIELDS,
@@ -244,7 +244,7 @@ function taiga_edit_issue_attributes($auth, $id)
                 "Authorization: Bearer $auth"
             )
         );
-        curl_setopt($process, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($process, CURLOPT_CUSTOMREQUEST, "PATCH");
         // Id's collected using https://api.taiga.io/api/v1/issue-custom-attributes?project=101250
         curl_setopt(
             $process,
