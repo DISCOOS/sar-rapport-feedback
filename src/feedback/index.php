@@ -84,6 +84,7 @@ if($auth = taiga_login()) {
                 $subject = isset_get($issue, 'subject');
                 $type = isset_get($issue, 'type');
                 $status = isset_get($issue, 'status_extra_info');
+		$assigned = isset_get($issue, 'assigned_to_extra_info');
 		$level = isset_get($issue, 'severity');
                 $description = isset_get($issue, 'description');
                 if ($attrs = taiga_get_issue_attributes($auth, $_GET['id'])) {
@@ -164,6 +165,9 @@ if($auth = taiga_login()) {
         echo $_GET['id'];
     } ?>">
         <div class="panel panel-default">
+	    <div class="panel-heading text-right">
+		<b>Status</b> <span class="label label-primary"><?=$status['name']?></span>&nbsp&nbsp<b>Ansvarlig</b> <span class="label label-primary"><?=($assigned['full_name_display'] ? $assigned['full_name_display'] : 'Ikke tildelt')?></span>
+	    </div>
             <div class="panel-body">
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">Emne</label>
@@ -259,9 +263,7 @@ if($auth = taiga_login()) {
             </div>
             <div class="panel-footer">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Status</label>
-                    <div class="col-sm-4"><?=$status['name']?></div>
-                    <div class="pull-right">
+                    <div class="col-sm-12 text-right">
                         <input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary">
                     </div>
                 </div>
