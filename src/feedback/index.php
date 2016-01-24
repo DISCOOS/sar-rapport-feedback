@@ -92,7 +92,6 @@ function notify($subject, $to, $message) {
     // Mail it
     $result = mail($to, $subject, $message, $headers);
 
-    var_dump($result);
 }
 
 function taiga_login()
