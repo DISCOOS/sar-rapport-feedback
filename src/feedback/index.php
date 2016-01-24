@@ -8,6 +8,8 @@ $types[] = array('id' => 0, 'name' => '');
 $level = 0;
 $levels[] = array('id' => 0, 'name' => '');
 
+$status = array('id' => 0, 'name' => 'Ny');
+
 // Get information from Taiga
 if($auth = taiga_login()) {
 
@@ -81,6 +83,7 @@ if($auth = taiga_login()) {
             if ($issue = taiga_get_issue($auth, $_GET['id'])) {
                 $subject = isset_get($issue, 'subject');
                 $type = isset_get($issue, 'type');
+                $status = isset_get($issue, 'status_extra_info');
 		$level = isset_get($issue, 'severity');
                 $description = isset_get($issue, 'description');
                 if ($attrs = taiga_get_issue_attributes($auth, $_GET['id'])) {
@@ -153,7 +156,7 @@ if($auth = taiga_login()) {
     <header class="jumbotron hero-spacer">
         <h1>Vi ønsker tilbakemeldinger!</h1>
 
-        <p>På denne siden kan du rapportere feil og komme med forslag til forbedringer av SAR-rapport</p>
+        <p>På denne siden kan du rapportere feil, stille spørsmål, komme med forslag til forbedringer og be om bistand</p>
     </header>
 
     <!-- Feedback form -->
@@ -255,8 +258,10 @@ if($auth = taiga_login()) {
 
             </div>
             <div class="panel-footer">
-                <div class="form-group text-right">
-                    <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Status</label>
+                    <div class="col-sm-4"><?=$status['name']?></div>
+                    <div class="pull-right">
                         <input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary">
                     </div>
                 </div>

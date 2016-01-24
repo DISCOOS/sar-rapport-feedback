@@ -95,6 +95,29 @@ function taiga_get_severity_levels($auth) {
     return $levels;
 }
 
+function taiga_get_issue($auth, $id)
+{
+    $process = curl_init(HOST . "issues/$id");
+    curl_setopt(
+        $process,
+        CURLOPT_HTTPHEADER,
+        array(
+            'Content-Type: application/json; charset=utf-8',
+            "Authorization: Bearer $auth"
+        )
+    );
+
+    curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
+    $issue = curl_exec($process);
+    if ($issue !== false) {
+        $issue = json_decode($issue, true);
+    }
+    curl_close($process);
+
+    return $issue;
+
+}
+
 function taiga_create_issue($auth)
 {
 
@@ -134,29 +157,6 @@ function taiga_create_issue($auth)
     curl_close($process);
 
     return $issue;
-}
-
-function taiga_get_issue($auth, $id)
-{
-    $process = curl_init(HOST . "issues/$id");
-    curl_setopt(
-        $process,
-        CURLOPT_HTTPHEADER,
-        array(
-            'Content-Type: application/json; charset=utf-8',
-            "Authorization: Bearer $auth"
-        )
-    );
-
-    curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
-    $issue = curl_exec($process);
-    if ($issue !== false) {
-        $issue = json_decode($issue, true);
-    }
-    curl_close($process);
-
-    return $issue;
-
 }
 
 function taiga_edit_issue($auth, $id)
