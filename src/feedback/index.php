@@ -65,17 +65,18 @@ if($auth = taiga_login()) {
         // If there are no errors, send the email
         if (!$errSubject && !$errDesc && !$errType && !$errLevel && !$errName && !$errEmail && !$errHuman) {
             if (isset($_GET['id'])) {
-                $issue = taiga_edit_issue($auth, $_GET['id']);
+                $issue = taiga_edit_issue_by_ref($auth, $_GET['id']);
             } else {
                 $issue = taiga_create_issue($auth);
             }
             if ($issue) {
-                $result = '<div class="alert alert-success">Takk! <a href="' . $issue . '">Tilbakemelding ' . $issue . '</a> er registrert. Vi vil ta kontakt når din tilbakemelding er behandlet. </div>';
+                $ref = $issue['ref'];
+                $result = '<div class="alert alert-success">Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert. Vi vil ta kontakt når din tilbakemelding er behandlet. </div>';
 
-                if(isset($_GET['id'])) {
-                    $comments = taiga_get_issue_comments($auth, $_GET['id']);
+                if(isset($issue['id'])) {
+                    $comments = taiga_get_issue_comments($auth, $issue['id']);
                 } else {
-                    notify('Tilbakemelding ' . $issue . '</a> er registrert', $email, $result);
+                    notify('Tilbakemelding ' . $ref . ' er registrert', $email, $result);
                 }
             }
         }
@@ -84,19 +85,19 @@ if($auth = taiga_login()) {
         }
     } else {
         if (isset($_GET['id'])) {
-            if ($issue = taiga_get_issue($auth, $_GET['id'])) {
+            if ($issue = taiga_get_issue_by_ref($auth, $_GET['id'])) {
                 $subject = isset_get($issue, 'subject');
                 $type = isset_get($issue, 'type');
                 $status = isset_get($issue, 'status_extra_info');
 		        $assigned = isset_get($issue, 'assigned_to_extra_info');
 		        $level = isset_get($issue, 'severity');
                 $description = isset_get($issue, 'description');
-                if ($attrs = taiga_get_issue_attributes($auth, $_GET['id'])) {
+                if ($attrs = taiga_get_issue_attributes($auth, $issue['id'])) {
                     $attrs = $attrs['attributes_values'];
                     $name = isset_get($attrs, '1164');
                     $email = isset_get($attrs, '1165');
                 }
-                $comments = taiga_get_issue_comments($auth, $_GET['id']);
+                $comments = taiga_get_issue_comments($auth, $issue['id']);
             }
         }
     }
@@ -166,9 +167,7 @@ if($auth = taiga_login()) {
     </header>
 
     <!-- Feedback form -->
-    <form class="form-horizontal" role="form" method="post" action="<?php if (isset($_GET['id'])) {
-        echo $_GET['id'];
-    } ?>">
+    <form class="form-horizontal" role="form" method="post" action="<?php if (isset($_GET['id'])) {echo $_GET['id'];} ?>">
         <div class="panel panel-default">
 	    <div class="panel-heading text-right">
 		<b>Status</b> <span class="label label-primary"><?=$status['name']?></span>&nbsp&nbsp<b>Ansvarlig</b> <span class="label label-primary"><?=($assigned['full_name_display'] ? $assigned['full_name_display'] : 'Ikke tildelt')?></span>

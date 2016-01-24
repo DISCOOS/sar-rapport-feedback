@@ -95,7 +95,7 @@ function taiga_get_severity_levels($auth) {
     return $levels;
 }
 
-function taiga_get_issue($auth, $id)
+function taiga_get_issue_by_id($auth, $id)
 {
     $process = curl_init(HOST . "issues/$id");
     curl_setopt(
@@ -117,6 +117,30 @@ function taiga_get_issue($auth, $id)
     return $issue;
 
 }
+
+function taiga_get_issue_by_ref($auth, $ref)
+{
+    $process = curl_init(HOST . "issues/by_ref?ref=$ref&project=".PROJECT);
+    curl_setopt(
+        $process,
+        CURLOPT_HTTPHEADER,
+        array(
+            'Content-Type: application/json; charset=utf-8',
+            "Authorization: Bearer $auth"
+        )
+    );
+
+    curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
+    $issue = curl_exec($process);
+    if ($issue !== false) {
+        $issue = json_decode($issue, true);
+    }
+    curl_close($process);
+
+    return $issue;
+
+}
+
 
 function taiga_create_issue($auth)
 {
@@ -150,8 +174,7 @@ function taiga_create_issue($auth)
     $issue = curl_exec($process);
     if ($issue !== false) {
         $issue = json_decode($issue, true);
-        $issue = $issue['id'];
-        taiga_edit_issue_attributes($auth, $issue);
+        taiga_edit_issue_attributes($auth, $issue['id']);
 
     }
     curl_close($process);
@@ -159,13 +182,13 @@ function taiga_create_issue($auth)
     return $issue;
 }
 
-function taiga_edit_issue($auth, $id)
+function taiga_edit_issue_by_ref($auth, $id)
 {
 
-    if ($issue = taiga_get_issue($auth, $id)) {
+    if ($issue = taiga_get_issue_by_ref($auth, $id)) {
 
         $version = $issue['version'];
-        $process = curl_init(HOST . "issues/$id");
+        $process = curl_init(HOST . "issues/{$issue['id']}");
         curl_setopt(
             $process,
             CURLOPT_HTTPHEADER,
@@ -193,7 +216,7 @@ function taiga_edit_issue($auth, $id)
         curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
         $issue = curl_exec($process);
         if ($issue !== false) {
-            taiga_edit_issue_attributes($auth, $id);
+            taiga_edit_issue_attributes($auth, $issue['id']);
             $issue = $id;
         }
         curl_close($process);
@@ -201,6 +224,7 @@ function taiga_edit_issue($auth, $id)
 
     return $issue;
 }
+
 
 
 function taiga_get_issue_attributes($auth, $id)
