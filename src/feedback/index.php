@@ -72,7 +72,9 @@ if($auth = taiga_login()) {
             if ($issue) {
                 $result = '<div class="alert alert-success">Takk! <a href="' . $issue . '">Tilbakemelding ' . $issue . '</a> er registrert. Vi vil ta kontakt når din tilbakemelding er behandlet. </div>';
 
-                if(true || !isset($_GET['id'])) {
+                if(isset($_GET['id'])) {
+                    $comments = taiga_get_issue_comments($auth, $_GET['id']);
+                } else {
                     notify('Tilbakemelding ' . $issue . '</a> er registrert', $email, $result);
                 }
             }
@@ -281,6 +283,7 @@ if($auth = taiga_login()) {
             <div class="panel-footer">
                 <div class="form-group">
                     <div class="col-sm-12 text-right">
+                        <a href="/sar-rapport/feedback" class="btn btn-default" role="button">Ny tilbakemelding</a>
                         <input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary">
                     </div>
                 </div>
