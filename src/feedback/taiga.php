@@ -114,7 +114,7 @@ function taiga_create_issue($auth)
             array(
                 'project' => PROJECT,
                 'type' => filter_post('type', FILTER_VALIDATE_INT),
-                'severity' => filter_post('severity', FILTER_VALIDATE_INT),
+                'severity' => filter_post('level', FILTER_VALIDATE_INT),
                 'subject' => filter_post('subject'),
                 'description' => filter_post('description'),
                 'reporter_name' => filter_post('name'),
@@ -182,7 +182,7 @@ function taiga_edit_issue($auth, $id)
                 array(
                     'project' => PROJECT,
                     'type' => filter_post('type', FILTER_VALIDATE_INT),
-                    'severity' => filter_post('severity', FILTER_VALIDATE_INT),
+                    'severity' => filter_post('level', FILTER_VALIDATE_INT),
                     'subject' => filter_post('subject'),
                     'description' => filter_post('description'),
                     'version' => $version

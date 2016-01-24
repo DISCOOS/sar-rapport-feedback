@@ -81,6 +81,7 @@ if($auth = taiga_login()) {
             if ($issue = taiga_get_issue($auth, $_GET['id'])) {
                 $subject = isset_get($issue, 'subject');
                 $type = isset_get($issue, 'type');
+		$level = isset_get($issue, 'severity');
                 $description = isset_get($issue, 'description');
                 if ($attrs = taiga_get_issue_attributes($auth, $_GET['id'])) {
                     $attrs = $attrs['attributes_values'];
@@ -180,19 +181,19 @@ if($auth = taiga_login()) {
                     <div class="col-sm-4">
                         <select id="type" name="type" class="form-control" <? if(!$auth) { echo "disabled"; }?>>
                         <?php foreach($types as $item) { ?>
-                            <option value="<?=$type?>" <?php if ($type === $item['id']) { echo("selected");}?>> <?php echo $item['name']; ?></option>
+<option value="<?=$item['id']?>" <?php if ($type === $item['id']) { echo("selected");}?>> <?php echo $item['name']; ?></option>
                         <?php } ?>
                         </select>
                         <?php if (isset($errType)) {
                             echo "<p class='text-danger'>$errType</p>";
                         } ?>
                     </div>
-                    <label for="type" class="col-sm-2 control-label">alvorlighetsgrad</label>
+                    <label for="level" class="col-sm-2 control-label">Alvorlighetsgrad</label>
 
                     <div class="col-sm-4">
                         <select id="level" name="level" class="form-control" <? if(!$auth) { echo "disabled"; }?>>
                             <?php foreach($levels as $item) { ?>
-<option value="<?=$level?>" <?php if ($level === $item['id']) { echo("selected");}?>> <?php echo $item['name']; ?></option>
+<option value="<?=$item['id']?>" <?php if ($level === $item['id']) { echo("selected");}?>> <?php echo $item['name']; ?></option>
                             <?php } ?>
                         </select>
                         <?php if (isset($errLevel)) {
