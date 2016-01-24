@@ -11,8 +11,6 @@ if($auth = taiga_login()) {
 
     $types = array_merge($types, taiga_get_issue_types($auth));
 
-//	var_dump($types);
-
     if (isset($_POST["submit"])) {
         $name = isset_get($_POST, 'name');
         $email = isset_get($_POST, 'email');
@@ -160,7 +158,8 @@ if($auth = taiga_login()) {
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="subject" name="subject"
                                placeholder="Kort beskrivende tekst"
-                               value="<?php if (isset($subject)) { echo $subject; }?>">
+                               value="<?php if (isset($subject)) { echo $subject; }?>"
+			       <? if(!$auth) { echo "disabled"; }?>>
                         <?php if (isset($errSubject)) {
                             echo "<p class='text-danger'>$errSubject</p>";
                         } ?>
@@ -171,7 +170,7 @@ if($auth = taiga_login()) {
 
                     <div class="col-sm-10">
                         <!-- Id's collected from https://tree.taiga.io/project/kengu-sar-rapport/admin/project-values/types -->
-                        <select id="type" name="type" class="form-control">
+                        <select id="type" name="type" class="form-control" <? if(!$auth) { echo "disabled"; }?>>
                         <?php foreach($types as $item) { ?>
                             <option value="<?=$type?>" <?php if ($type === $item['id']) { echo("selected");}?>> <?php echo $item['name']; ?></option>
                         <?php } ?>
@@ -185,7 +184,7 @@ if($auth = taiga_login()) {
                     <label for="description" class="col-sm-2 control-label">Beskrivelse</label>
 
                     <div class="col-sm-10">
-                        <textarea class="form-control" rows="4" id="description" name="description"><?php if (isset($description)) { echo $description; }?></textarea>
+                        <textarea class="form-control" rows="4" id="description" name="description" <? if(!$auth) { echo "disabled"; }?>><?php if (isset($description)) { echo $description; }?></textarea>
                         <?php if (isset($errDesc)) {
                             echo "<p class='text-danger'>$errDesc</p>";
                         } ?>
@@ -196,7 +195,8 @@ if($auth = taiga_login()) {
 
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="name" name="name" placeholder="Ditt navn"
-                               value="<?php if (isset($name)) { echo $name; }?>">
+                               value="<?php if (isset($name)) { echo $name; }?>"
+			       <? if(!$auth) { echo "disabled"; }?>>
                         <?php if (isset($errName)) {
                             echo "<p class='text-danger'>$errName</p>";
                         } ?>
@@ -207,7 +207,8 @@ if($auth = taiga_login()) {
 
                     <div class="col-sm-10">
                         <input type="email" class="form-control" id="email" name="email"
-                               placeholder="example@domain.com" value="<?php if (isset($email)) { echo $email; }?>">
+                               placeholder="example@domain.com" value="<?php if (isset($email)) { echo $email; }?>"
+			       <? if(!$auth) { echo "disabled"; }?>>
                         <?php if (isset($errEmail)) {
                             echo "<p class='text-danger'>$errEmail</p>";
                         } ?>
@@ -218,7 +219,8 @@ if($auth = taiga_login()) {
 
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="human" name="human" placeholder="Ditt svar"
-                               value="<?php if (isset($human)) { echo $human; }?>">
+                               value="<?php if (isset($human)) { echo $human; }?>"
+			       <? if(!$auth) { echo "disabled"; }?>>
                         <?php if (isset($errHuman)) {
                             echo "<p class='text-danger'>$errHuman</p>";
                         } ?>
