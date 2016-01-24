@@ -263,12 +263,20 @@ if($auth = taiga_login()) {
                     </div>
                 </div>
                 <? if(!empty($comments )) { ?>
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <?foreach($comments as $comment) { var_dump($comment); }?>
-                    </div>
+		<div class="form-group">
+			<label for="comments" class="col-sm-2 control-label">Comments</label>
+
+                	<div id="comments" class="col-sm-10">
+                <? foreach($comments as $comment) { ?>
+				<div class ="list-group-item">
+					<div class="list-group-heading"><b><?=$comment['user'];?></b> <span class="label label-default pull-right"><?=date('d M Y H:m', strtotime($comment['created']));?></span></div><br/>
+					<div class="list-group-item-text"><?=$comment['html'];?></div>
+				</div>
+		<? } ?>
+			</div>
                 </div>
                 <? } ?>
+
             </div>
             <div class="panel-footer">
                 <div class="form-group">

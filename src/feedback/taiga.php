@@ -274,7 +274,7 @@ function taiga_edit_issue_attributes($auth, $id)
 
 function taiga_get_issue_comments($auth, $id)
 {
-    $process = curl_init(HOST . "issue/history/$id");
+    $process = curl_init(HOST . "history/issue/$id");
     curl_setopt(
         $process,
         CURLOPT_HTTPHEADER,
