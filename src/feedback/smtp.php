@@ -2,6 +2,8 @@
 
 function notify($subject, $to, $name, $body) {
 
+    try {
+
     $failed = array();
 
     // Create the Transport
@@ -20,11 +22,13 @@ function notify($subject, $to, $name, $body) {
     $message = \Swift_Message::newInstance($subject);
 
     $from = array ('rge@hjelpekorps.org' => 'RG Ettersøkning');
-    $message->setFrom($from)->setBody($body, 'text/html');
+    $message->setFrom($from)->setReplyTo($from)->setBody($body, 'text/html');
 
     $message->setTo(array($to => $name));
     $mailer->send($message, $failed);
 
     return empty($failed) ? true : $failed;
-
+    } catch(Swift_TransportException $e) {
+	return $e->getMessage();
+    }
 }
