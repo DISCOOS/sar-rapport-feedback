@@ -76,12 +76,14 @@ if($auth = taiga_login()) {
 
                 if(isset($issue['id'])) {
                     $comments = taiga_get_issue_comments($auth, $issue['id']);
-		    $result = 'Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert. Vi vil ta kontakt når din tilbakemelding er behandlet.';
-		    $status = notify('Tilbakemelding ' . $ref . ' er registrert', $email, $result);
-		    var_dump($status);
+		            $result = 'Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert.';
+                    $result .= 'Vi vil ta kontakt når din tilbakemelding er behandlet.';
+		            $status = notify('Tilbakemelding ' . $ref . ' er registrert', $email, $name, $result);
+		            var_dump($status);
+
                 } else {
                     $result = 'Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert. ';
-                    if(notify('Tilbakemelding ' . $ref . ' er registrert', $email, $result)) {
+                    if(notify('Tilbakemelding ' . $ref . ' er registrert', $email, $name, $result)) {
                         $result .= 'Kvittering er sendt til ' . $email . '. ';
                     }
                     $result .= 'Vi vil ta kontakt når din tilbakemelding er behandlet.';

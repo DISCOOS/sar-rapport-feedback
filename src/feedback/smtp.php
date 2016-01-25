@@ -1,6 +1,6 @@
 <?php
 
-function notify($subject, $to, $body) {
+function notify($subject, $to, $name, $body) {
 
     $failed = array();
 
@@ -19,10 +19,10 @@ function notify($subject, $to, $body) {
     // Create a message
     $message = \Swift_Message::newInstance($subject);
 
-    $from = $this->prepareAddress('RG Ettersøkning <rge@hjelpekorps.org>');
+    $from = array ('rge@hjelpekorps.org' => 'RG Ettersøkning');
     $message->setFrom($from)->setBody($body, 'text/html');
 
-    $to = $this->prepareAddresses($to);
+    $to = $this->prepareAddresses(array($to => $name));
 
     $message->setTo($to);
     $mailer->send($message, $failed);
