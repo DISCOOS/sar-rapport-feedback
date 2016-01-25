@@ -72,13 +72,19 @@ if($auth = taiga_login()) {
             }
             if ($issue) {
                 $ref = $issue['ref'];
-                $result = '<div class="alert alert-success">Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert. Vi vil ta kontakt når din tilbakemelding er behandlet. </div>';
+                $result = 'Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert. Vi vil ta kontakt når din tilbakemelding er behandlet.';
 
                 if(isset($issue['id'])) {
                     $comments = taiga_get_issue_comments($auth, $issue['id']);
                 } else {
-                    notify('Tilbakemelding ' . $ref . ' er registrert', $email, $result);
+                    $result = 'Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert. ';
+                    if(notify('Tilbakemelding ' . $ref . ' er registrert', $email, $result)) {
+                        $result .= 'Kvittering er sendt til ' . $email . '. ';
+                    }
+                    $result .= 'Vi vil ta kontakt når din tilbakemelding er behandlet.';
+
                 }
+                $result = '<div class="alert alert-success">' . $result . '</div>';
             }
         }
         if (!isset($result) && !($errSubject || $errDesc || $errType || $errLevel || $errName || $errEmail || $errHuman)) {
