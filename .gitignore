@@ -1,3 +1,4 @@
 src/.idea
 src/feedback/config.php
 src/logs
+composer.phar
