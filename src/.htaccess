@@ -1,5 +1,7 @@
+Options -Indexes
+
 <IfModule mod_rewrite.c>
-    
+
     RewriteEngine on
 
     RewriteCond %{SCRIPT_FILENAME} !-f
@@ -8,4 +10,7 @@
     RewriteRule ^feedback/?(.?)$ feedback.php?id=$1 [L,QSA]
     RewriteRule ^wiki/?(.?)$ wiki.php?view=$1 [L,QSA]
 
+    DirectoryIndex feedback.php
+
 </IfModule>
+
