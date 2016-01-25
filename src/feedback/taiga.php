@@ -2,26 +2,8 @@
 
 require 'config.php';
 
-define ('HOST', 'https://api.taiga.io/api/v1/');
-
-function notify($subject, $to, $message) {
-
-    // To send HTML mail, the Content-type header must be set
-    $headers = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-
-    // Additional headers
-    $headers .= 'Reply-To: RG Ettersøkning <rge@hjelpekorps.org>' . "\r\n";
-    $headers .= 'From: RG Ettersøkning <rge@hjelpekorps.org>' . "\r\n";
-//    $headers .= 'Bcc: rge@hjelpekorps.org' . "\r\n";
-
-    // Mail it
-    mail($to, $subject, $message, $headers);
-
-}
-
 function taiga_login() {
-    $process = curl_init(HOST . 'auth');
+    $process = curl_init(TAIGA_HOST . 'auth');
     curl_setopt(
         $process,
         CURLOPT_HTTPHEADER,
@@ -35,8 +17,8 @@ function taiga_login() {
         json_encode(
             array(
                 'type' => 'normal',
-                'username' => USERNAME,
-                'password' => PASSWORD
+                'username' => TAIGA_USERNAME,
+                'password' => TAIGA_PASSWORD
             )
         )
     );
@@ -54,7 +36,7 @@ function taiga_login() {
 }
 
 function taiga_get_issue_types($auth) {
-    $process = curl_init(HOST . 'issue-types?project=' . PROJECT);
+    $process = curl_init(TAIGA_HOST . 'issue-types?project=' . TAIGA_PROJECT);
     curl_setopt(
         $process,
         CURLOPT_HTTPHEADER,
@@ -75,7 +57,7 @@ function taiga_get_issue_types($auth) {
 }
 
 function taiga_get_severity_levels($auth) {
-    $process = curl_init(HOST . 'severities?project=' . PROJECT);
+    $process = curl_init(TAIGA_HOST . 'severities?project=' . TAIGA_PROJECT);
     curl_setopt(
         $process,
         CURLOPT_HTTPHEADER,
@@ -97,7 +79,7 @@ function taiga_get_severity_levels($auth) {
 
 function taiga_get_issue_by_id($auth, $id)
 {
-    $process = curl_init(HOST . "issues/$id");
+    $process = curl_init(TAIGA_HOST . "issues/$id");
     curl_setopt(
         $process,
         CURLOPT_HTTPHEADER,
@@ -120,7 +102,7 @@ function taiga_get_issue_by_id($auth, $id)
 
 function taiga_get_issue_by_ref($auth, $ref)
 {
-    $process = curl_init(HOST . "issues/by_ref?ref=$ref&project=".PROJECT);
+    $process = curl_init(TAIGA_HOST . "issues/by_ref?ref=$ref&project=".TAIGA_PROJECT);
     curl_setopt(
         $process,
         CURLOPT_HTTPHEADER,
@@ -145,7 +127,7 @@ function taiga_get_issue_by_ref($auth, $ref)
 function taiga_create_issue($auth)
 {
 
-    $process = curl_init(HOST . 'issues');
+    $process = curl_init(TAIGA_HOST . 'issues');
     curl_setopt(
         $process,
         CURLOPT_HTTPHEADER,
@@ -159,7 +141,7 @@ function taiga_create_issue($auth)
         CURLOPT_POSTFIELDS,
         json_encode(
             array(
-                'project' => PROJECT,
+                'project' => TAIGA_PROJECT,
                 'type' => filter_post('type', FILTER_VALIDATE_INT),
                 'severity' => filter_post('level', FILTER_VALIDATE_INT),
                 'subject' => filter_post('subject'),
@@ -188,7 +170,7 @@ function taiga_edit_issue_by_ref($auth, $id)
     if ($issue = taiga_get_issue_by_ref($auth, $id)) {
 
         $version = $issue['version'];
-        $process = curl_init(HOST . "issues/{$issue['id']}");
+        $process = curl_init(TAIGA_HOST . "issues/{$issue['id']}");
         curl_setopt(
             $process,
             CURLOPT_HTTPHEADER,
@@ -203,7 +185,7 @@ function taiga_edit_issue_by_ref($auth, $id)
             CURLOPT_POSTFIELDS,
             json_encode(
                 array(
-                    'project' => PROJECT,
+                    'project' => TAIGA_PROJECT,
                     'type' => filter_post('type', FILTER_VALIDATE_INT),
                     'severity' => filter_post('level', FILTER_VALIDATE_INT),
                     'subject' => filter_post('subject'),
@@ -229,7 +211,7 @@ function taiga_edit_issue_by_ref($auth, $id)
 
 function taiga_get_issue_attributes($auth, $id)
 {
-    $process = curl_init(HOST . "issues/custom-attributes-values/$id");
+    $process = curl_init(TAIGA_HOST . "issues/custom-attributes-values/$id");
     curl_setopt(
         $process,
         CURLOPT_HTTPHEADER,
@@ -259,7 +241,7 @@ function taiga_edit_issue_attributes($auth, $id)
 
         $version = $attributes['version'];
 
-        $process = curl_init(HOST . "issues/custom-attributes-values/$id");
+        $process = curl_init(TAIGA_HOST . "issues/custom-attributes-values/$id");
         curl_setopt(
             $process,
             CURLOPT_HTTPHEADER,
@@ -298,7 +280,7 @@ function taiga_edit_issue_attributes($auth, $id)
 
 function taiga_get_issue_comments($auth, $id)
 {
-    $process = curl_init(HOST . "history/issue/$id");
+    $process = curl_init(TAIGA_HOST . "history/issue/$id");
     curl_setopt(
         $process,
         CURLOPT_HTTPHEADER,

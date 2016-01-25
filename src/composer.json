@@ -1,0 +1,14 @@
+{
+    "name": "kengu/sar-rapport-feedback",
+    "description": "SAR-report issue and feedback site",
+    "require": {
+        "swiftmailer/swiftmailer": "^5.4"
+    },
+    "license": "BSD 2 clause",
+    "authors": [
+        {
+            "name": "Kenneth Gulbrandsøy",
+            "email": "kenneth@discoos.org"
+        }
+    ]
+}

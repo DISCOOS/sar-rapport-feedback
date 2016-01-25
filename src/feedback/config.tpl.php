@@ -1,6 +1,12 @@
 <?php
 
-define ('HOST', 'https://api.taiga.io/api/v1/');
-define ('PROJECT', '101250');
-define ('USERNAME', 'username');
-define ('PASSWORD', 'password');
+define ('TAIGA_HOST', 'https://api.taiga.io/api/v1/');
+define ('TAIGA_PROJECT', '101250');
+define ('TAIGA_USERNAME', 'username');
+define ('TAIGA_PASSWORD', 'password');
+
+define ('SMTP_HOST', 'host');
+define ('SMTP_PORT', 'port');
+define ('SMTP_ENCRYPTION', 'ssl');
+define ('SMTP_USERNAME', 'username');
+define ('SMTP_PASSWORD', 'password');

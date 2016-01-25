@@ -1,6 +1,7 @@
 <?php
 
 require 'taiga.php';
+require '../vendor/autoload.php';
 
 // Initialize
 $type = 0;
