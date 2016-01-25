@@ -1,5 +1,6 @@
 <?php
 
+require 'smtp.php';
 require 'taiga.php';
 require '../vendor/autoload.php';
 
@@ -72,10 +73,12 @@ if($auth = taiga_login()) {
             }
             if ($issue) {
                 $ref = $issue['ref'];
-                $result = 'Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert. Vi vil ta kontakt når din tilbakemelding er behandlet.';
 
                 if(isset($issue['id'])) {
                     $comments = taiga_get_issue_comments($auth, $issue['id']);
+		    $result = 'Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert. Vi vil ta kontakt når din tilbakemelding er behandlet.';
+		    $status = notify('Tilbakemelding ' . $ref . ' er registrert', $email, $result);
+		    var_dump($status);
                 } else {
                     $result = 'Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert. ';
                     if(notify('Tilbakemelding ' . $ref . ' er registrert', $email, $result)) {

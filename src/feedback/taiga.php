@@ -296,7 +296,7 @@ function taiga_get_issue_comments($auth, $id)
         $history = json_decode($comments, true);
         $comments = array();
         foreach($history as $comment) {
-            if(!empty($comment['comment_html'])) {
+            if(is_array($comment) && isset($comment['comment_html']) && !empty($comment['comment_html'])) {
                 $comments[] = array(
                     'html' => $comment['comment_html'],
                     'user' => $comment['user']['name'],
