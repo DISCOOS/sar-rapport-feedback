@@ -10,3 +10,7 @@ define ('SMTP_PORT', 'port');
 define ('SMTP_ENCRYPTION', 'ssl');
 define ('SMTP_USERNAME', 'username');
 define ('SMTP_PASSWORD', 'password');
+
+define ('REPLY_TO_EMAIL', '');
+define ('REPLY_TO_NAME', '');
+

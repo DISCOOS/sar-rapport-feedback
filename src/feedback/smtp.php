@@ -21,7 +21,7 @@ function notify($subject, $to, $name, $body) {
     // Create a message
     $message = \Swift_Message::newInstance($subject);
 
-    $from = array ('rge@hjelpekorps.org' => 'RG Ettersøkning');
+    $from = array (REPLY_TO_EMAIL => REPLY_TO_NAME);
     $message->setFrom($from)->setReplyTo($from)->setBody($body, 'text/html');
 
     $message->setTo(array($to => $name));
