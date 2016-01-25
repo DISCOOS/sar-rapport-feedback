@@ -149,6 +149,9 @@ if($auth = taiga_login()) {
                 <li>
                     <a href="http://www.hjelpekorps.org" target="_blank">Norges Røde Kors Hjelpekorps</a>
                 </li>
+		<li>
+		    <a href="https://goo.gl/zjQPzA" target="_blank">Brukerveiledning</a>
+		</li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -266,11 +269,10 @@ if($auth = taiga_login()) {
                 <? if(!empty($comments )) { ?>
 		<div class="form-group">
 			<label for="comments" class="col-sm-2 control-label">Comments</label>
-
                 	<div id="comments" class="col-sm-10">
                 <? foreach($comments as $comment) { ?>
 				<div class ="list-group-item">
-					<div class="list-group-heading"><b><?=$comment['user'];?></b> <span class="label label-default pull-right"><?=date('d M Y H:m', strtotime($comment['created']));?></span></div><br/>
+					<div class="list-group-heading"><b><?=$comment['user'];?></b> <span class="label label-default pull-right"><?=date('d M Y H:i', strtotime($comment['created']));?></span></div><br/>
 					<div class="list-group-item-text"><?=$comment['html'];?></div>
 				</div>
 		<? } ?>
