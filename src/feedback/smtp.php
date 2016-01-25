@@ -22,9 +22,7 @@ function notify($subject, $to, $name, $body) {
     $from = array ('rge@hjelpekorps.org' => 'RG Ettersøkning');
     $message->setFrom($from)->setBody($body, 'text/html');
 
-    $to = $this->prepareAddresses(array($to => $name));
-
-    $message->setTo($to);
+    $message->setTo(array($to => $name));
     $mailer->send($message, $failed);
 
     return empty($failed) ? true : $failed;
