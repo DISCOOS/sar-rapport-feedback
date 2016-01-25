@@ -1,5 +1,5 @@
 src/.idea
-src/feedback/config.php
+src/config.php
 src/logs
 src/composer.phar
 src/vendor/
