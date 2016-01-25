@@ -76,7 +76,7 @@ if($auth = taiga_login()) {
 
                 if(isset($issue['id'])) {
                     $comments = taiga_get_issue_comments($auth, $issue['id']);
-		    $result = 'Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert.';
+		    $result = 'Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert. ';
                     $result .= 'Vi vil ta kontakt når din tilbakemelding er behandlet.';
 
                 } else {
