@@ -14,6 +14,8 @@ $status = array('id' => 0, 'name' => 'Ny');
 
 $comments = array();
 
+$id = isset_get($_GET, 'id');
+
 // Get information from Taiga
 if($auth = taiga_login()) {
 
@@ -66,15 +68,16 @@ if($auth = taiga_login()) {
 
         // If there are no errors, send the email
         if (!$errSubject && !$errDesc && !$errType && !$errLevel && !$errName && !$errEmail && !$errHuman) {
-            if (isset($_GET['id'])) {
-                $issue = taiga_edit_issue_by_ref($auth, $_GET['id']);
+            if ($id) {
+                $issue = taiga_edit_issue_by_ref($auth, $id);
             } else {
                 $issue = taiga_create_issue($auth);
             }
             if ($issue) {
+
                 $ref = $issue['ref'];
 
-                if(isset($issue['id'])) {
+                if($id) {
                     $comments = taiga_get_issue_comments($auth, $issue['id']);
 		    $result = 'Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert. ';
                     $result .= 'Vi vil ta kontakt når din tilbakemelding er behandlet.';
@@ -94,8 +97,8 @@ if($auth = taiga_login()) {
             $result = '<div class="alert alert-danger">Beklager, din henvendelse kunne ikke registres.</div>';
         }
     } else {
-        if (isset($_GET['id'])) {
-            if ($issue = taiga_get_issue_by_ref($auth, $_GET['id'])) {
+        if ($id) {
+            if ($issue = taiga_get_issue_by_ref($auth, $id)) {
                 $subject = isset_get($issue, 'subject');
                 $type = isset_get($issue, 'type');
                 $status = isset_get($issue, 'status_extra_info');
@@ -180,7 +183,7 @@ if($auth = taiga_login()) {
     </header>
 
     <!-- Feedback form -->
-    <form class="form-horizontal" role="form" method="post" action="<?php if (isset($_GET['id'])) {echo $_GET['id'];} ?>">
+    <form class="form-horizontal" role="form" method="post" action="<?php if ($issue['ref']) {echo $issue['ref'];} ?>">
         <div class="panel panel-default">
 	    <div class="panel-heading text-right">
 		<b>Status</b> <span class="label label-primary"><?=$status['name']?></span>&nbsp&nbsp<b>Ansvarlig</b> <span class="label label-primary"><?=($assigned['full_name_display'] ? $assigned['full_name_display'] : 'Ikke tildelt')?></span>
