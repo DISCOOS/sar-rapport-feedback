@@ -251,7 +251,7 @@ function taiga_edit_issue_attributes($auth, $id)
             )
         );
         curl_setopt($process, CURLOPT_CUSTOMREQUEST, "PATCH");
-        // Id's collected using https://api.taiga.io/api/v1/issue-custom-attributes?project=101250
+        // Id's collected using https://api.taiga.io/api/v1/issue-custom-attributes?project=121115
         curl_setopt(
             $process,
             CURLOPT_POSTFIELDS,
@@ -259,9 +259,9 @@ function taiga_edit_issue_attributes($auth, $id)
                 array(
                     'attributes_values' => array(
                         // reporter_name
-                        '1164' => filter_post('name'),
+                        '1671' => filter_post('name'),
                         // reporter_email
-                        '1165' => filter_post('email')
+                        '1672' => filter_post('email')
                     ),
                     'version' => $version,
                     'issue' => $id

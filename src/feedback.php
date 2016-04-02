@@ -107,8 +107,8 @@ if($auth = taiga_login()) {
                 $description = isset_get($issue, 'description');
                 if ($attrs = taiga_get_issue_attributes($auth, $issue['id'])) {
                     $attrs = $attrs['attributes_values'];
-                    $name = isset_get($attrs, '1164');
-                    $email = isset_get($attrs, '1165');
+                    $name = isset_get($attrs, '1671');
+                    $email = isset_get($attrs, '1672');
                 }
                 $comments = taiga_get_issue_comments($auth, $issue['id']);
             }
@@ -164,6 +164,9 @@ if($auth = taiga_login()) {
                 </li>
 		<li>
 		    <a href="https://goo.gl/zjQPzA" target="_blank">Brukerveiledning</a>
+		</li>
+		<li>
+		    <a href="https://tree.taiga.io/project/kengu-sar-rapport/wiki/home" target="_blank">Spørsmål og svar</a>
 		</li>
             </ul>
         </div>
