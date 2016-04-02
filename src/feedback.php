@@ -19,6 +19,11 @@ $id = isset_get($_GET, 'id');
 // Get information from Taiga
 if($auth = taiga_login()) {
 
+	//taiga_delete_project_by_slug('rge-fsor-v1')	
+	//taiga_edit_project_by_id($auth, 121064);
+	//exit;
+
+
     $types = array_merge($types, taiga_get_issue_types($auth));
     $levels = array_merge($levels, taiga_get_severity_levels($auth));
 

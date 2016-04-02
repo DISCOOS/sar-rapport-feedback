@@ -311,6 +311,52 @@ function taiga_get_issue_comments($auth, $id)
 
 }
 
+function taiga_delete_project_by_id($auth, $id) {
+    $process = curl_init(TAIGA_HOST . "projects/$id");
+    curl_setopt(
+        $process,
+        CURLOPT_HTTPHEADER,
+        array(
+            'Content-Type: application/json; charset=utf-8',
+            "Authorization: Bearer $auth"
+        )
+    );
+    curl_setopt($process, CURLOPT_CUSTOMREQUEST, "DELETE");
+    curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($process);
+    curl_close($process);
+    var_dump($result);
+    return $result;
+
+}
+
+function taiga_edit_project_by_id($auth, $id) {
+    $process = curl_init(TAIGA_HOST . "projects/$id");
+    curl_setopt(
+        $process,
+        CURLOPT_HTTPHEADER,
+        array(
+            'Content-Type: application/json; charset=utf-8',
+            "Authorization: Bearer $auth"
+        )
+    );
+    curl_setopt($process, CURLOPT_CUSTOMREQUEST, "PATCH");
+    curl_setopt(
+        $process,
+        CURLOPT_POSTFIELDS,
+        json_encode(
+            array(
+                 'slug' => 'rge-ksor-v2'
+            )
+        )
+    );
+    curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($process);
+    curl_close($process);
+    var_dump($result);
+    return $result;
+}
+
 function isset_get($array, $name, $default = false)
 {
     return isset($array[$name]) ? $array[$name] : $default;
