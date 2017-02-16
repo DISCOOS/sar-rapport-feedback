@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>SAR-rapport - tilbakemelding</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/heroic-features.css" rel="stylesheet">
+
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://sar.hovedredningssentralen.no/" target="_blank">SAR-rapport</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="https://www.korsveien.no/sites/hjkaksjonsrapportering/default.aspx" target="_blank">Korsveien</a>
+                </li>
+                <li>
+                    <a href="http://www.hjelpekorps.org" target="_blank">Norges Røde Kors Hjelpekorps</a>
+                </li>
+		<li>
+		    <a href="https://goo.gl/zjQPzA" target="_blank">Brukerveiledning</a>
+		</li>
+		<li>
+		    <a href="https://tree.taiga.io/project/rge-sar-rapport/wiki/home" target="_blank">Spørsmål og svar</a>
+		</li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Jumbotron Header -->
+    <header class="jumbotron hero-spacer">
+        <h1>Vi ønsker tilbakemeldinger!</h1>
+
+        <p>På denne siden kan du rapportere feil, stille spørsmål, komme med forslag til forbedringer og be om bistand</p>
+    </header>
+
+    <? require $view; ?>
+
+</div>
+
+
+<!-- Footer -->
+<footer>
+    <div class="row">
+        <div class="col-lg-12">
+            <p><b>SAR-rapport</b> | Norges Røde Kors Hjelpekorps</p>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"></script>
+
+<!-- Prevent robots from spamming us -->
+<script src='https://www.google.com/recaptcha/api.js?hl=no'></script>
+
+</body>
+</html>
