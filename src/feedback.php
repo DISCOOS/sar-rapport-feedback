@@ -16,6 +16,10 @@ $comments = array();
 
 $id = isset_get($_GET, 'id');
 
+if(strtolower($id)=='new') {
+   unset($id);
+}
+
 // Get information from Taiga
 if($auth = taiga_login()) {
 
@@ -173,7 +177,7 @@ if($auth = taiga_login()) {
 		    <a href="https://goo.gl/zjQPzA" target="_blank">Brukerveiledning</a>
 		</li>
 		<li>
-		    <a href="https://tree.taiga.io/project/kengu-sar-rapport/wiki/home" target="_blank">Spørsmål og svar</a>
+		    <a href="https://tree.taiga.io/project/rge-sar-rapport/wiki/home" target="_blank">Spørsmål og svar</a>
 		</li>
             </ul>
         </div>
@@ -196,12 +200,12 @@ if($auth = taiga_login()) {
     <form class="form-horizontal" role="form" method="post" action="<?php if ($issue['ref']) {echo $issue['ref'];} ?>">
         <div class="panel panel-default">
 	    <div class="panel-heading text-right">		 
-	    	<div class="pull-left text-left">
-			<b><?php=isset($id) ? 'Endre tilbakemelding' : 'Ny tilbakemelding';?></b> 
-		</div>
-	    	<div class="pull-right text-right">		 
-			<b>Status</b> <span class="label label-primary"><?=$status['name']?></span>&nbsp&nbsp<b>Ansvarlig</b> <span class="label label-primary"><?=($assigned['full_name_display'] ? $assigned['full_name_display'] : 'Ikke tildelt')?></span>
-		</div>	
+	    	<div class="text-left">
+		    <b><?=isset($id) && !empty($id) ? 'Endre tilbakemelding' : 'Ny tilbakemelding'?></b> 
+	    	    <div class="pull-right text-right">		 
+		        <b>Status</b> <span class="label label-primary"><?=isset($status['name']) ? $status['name'] : 'Ny' ?></span>&nbsp&nbsp<b>Ansvarlig</b> <span class="label label-primary"><?=($assigned['full_name_display'] ? $assigned['full_name_display'] : 'Ikke tildelt')?></span>
+		    </div>
+                </div>	
 	    </div>
             <div class="panel-body">
                 <div class="form-group">
