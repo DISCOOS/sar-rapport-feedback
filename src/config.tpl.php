@@ -14,3 +14,8 @@ define ('SMTP_PASSWORD', 'password');
 define ('REPLY_TO_EMAIL', '');
 define ('REPLY_TO_NAME', '');
 
+define('RECAPTCHA_SITE_KEY','');
+define('RECAPTCHA_SECRET_KEY', '');
+define('RECAPTCHA_VERIFY_URL', 'https://www.google.com/recaptcha/api/siteverify');
+
+require 'utils.php';

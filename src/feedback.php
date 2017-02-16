@@ -2,6 +2,7 @@
 
 require 'smtp.php';
 require 'taiga.php';
+require 'recaptcha.php';
 require 'vendor/autoload.php';
 
 // Initialize
@@ -13,6 +14,8 @@ $levels[] = array('id' => 0, 'name' => '');
 $status = array('id' => 0, 'name' => 'Ny');
 
 $comments = array();
+
+$result = '';
 
 $id = isset_get($_GET, 'id');
 
@@ -71,9 +74,9 @@ if($auth = taiga_login()) {
             $errEmail = 'Skriv inn en gyldig e-postadresse';
         }
 
-        //Check if simple anti-bot test is correct
-        if (intval($human) !== 5) {
-            $errHuman = 'Ditt svar er feil, prøv igjen';
+        // Check anti-bot test is correct
+        if (!recaptcha_verify()) {
+            $errHuman = 'Du må klikke på boksen over for å bekrefte at du ikke er en robot';
         }
 
         // If there are no errors, send the email
@@ -102,6 +105,8 @@ if($auth = taiga_login()) {
 
                 }
                 $result = '<div class="alert alert-success">' . $result . '</div>';
+                $comments = taiga_get_issue_comments($auth, $issue['id']);
+
             }
         }
         if (!isset($result) && !($errSubject || $errDesc || $errType || $errLevel || $errName || $errEmail || $errHuman)) {
@@ -148,6 +153,10 @@ if($auth = taiga_login()) {
 
     <!-- Custom CSS -->
     <link href="css/heroic-features.css" rel="stylesheet">
+
+    <!-- Prevent robots from spamming us -->
+    <script src='https://www.google.com/recaptcha/api.js?hl=no'></script>
+
 </head>
 
 <body>
@@ -282,12 +291,10 @@ if($auth = taiga_login()) {
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="human" class="col-sm-2 control-label">2 + 3 = ?</label>
+                    <label for="human" class="col-sm-2 control-label">Er du en robot?</label>
 
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="human" name="human" placeholder="Ditt svar"
-                               value="<?php if (isset($human)) { echo $human; }?>"
-			       <? if(!$auth) { echo "disabled"; }?>>
+			<div id="g-recaptcha" class="g-recaptcha" data-size="normal" data-sitekey="<?=RECAPTCHA_SITE_KEY?>"></div>
                         <?php if (isset($errHuman)) {
                             echo "<p class='text-danger'>$errHuman</p>";
                         } ?>
@@ -315,9 +322,11 @@ if($auth = taiga_login()) {
             </div>
             <div class="panel-footer">
                 <div class="form-group">
-                    <div class="col-sm-12 text-right">
-                        <a href="/feedback/new" class="btn btn-default" role="button">Ny tilbakemelding</a>
-                        <input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary">
+                    <div class="col-sm-12 text-left">
+                        <div class="text-right">
+                            <a href="/feedback/new" class="btn btn-default" role="button">Ny tilbakemelding</a>
+                            <input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary">
+			</div>
                     </div>
                 </div>
 

@@ -375,12 +375,3 @@ function taiga_edit_project_by_id($auth, $id) {
     return $result;
 }
 
-function isset_get($array, $name, $default = false)
-{
-    return isset($array[$name]) ? $array[$name] : $default;
-}
-
-function filter_post($name, $filter = FILTER_DEFAULT)
-{
-    return filter_input(INPUT_POST, $name, $filter, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-}
