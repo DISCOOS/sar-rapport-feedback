@@ -199,7 +199,6 @@ function taiga_edit_issue_by_ref($auth, $id)
         $issue = curl_exec($process);
         if ($issue !== false) {
             taiga_edit_issue_attributes($auth, $issue['id']);
-            $issue = $id;
         }
         curl_close($process);
     }

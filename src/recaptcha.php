@@ -27,7 +27,6 @@ function recaptcha_verify() {
 
     curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
     $result = curl_exec($process);
-var_dump($result);
 
     if ($result !== false) {
         $result = json_decode($result, true);

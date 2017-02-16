@@ -30,3 +30,46 @@ function get_client_ip() {
     return $ipaddress;
 }
 
+function redirect($uri) {
+    $url = get_url().$uri;
+    var_dump($url);
+    header("Location: $url");
+    exit;
+}
+
+
+function get_uri() {
+    $name = substr(strrchr($_SERVER['PHP_SELF'], "/"), 1);
+    $path = str_replace($name, '', $_SERVER['PHP_SELF']);
+
+    $folders = array();
+    foreach(scandir(APP_PATH) as $file) {            
+        if($file === '.' || $file === '..') {
+            continue;
+        }
+        if(is_dir(APP_PATH . '/' . $file)) { 
+            $folders[] = $file;
+        }
+    }
+    
+    foreach($folders as $folder){
+        $match = strstr($path, $folder);
+        if($match){
+            return str_replace($match, '', $path);
+        }
+    }
+
+    return $path;
+
+}
+
+function get_url() {
+    $url = '';
+    if(isset($_SERVER["SERVER_PROTOCOL"])) {
+        $s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "";
+        $sp = strtolower($_SERVER["SERVER_PROTOCOL"]);
+        $protocol = substr($sp, 0, strpos($sp, "/")) . $s;
+        $url = $protocol . "://" . $_SERVER['SERVER_NAME'] . get_uri();
+    }
+    return $url;
+}

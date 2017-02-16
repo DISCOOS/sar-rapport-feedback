@@ -1,5 +1,7 @@
 <?php
 
+define('APP_PATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
+
 define ('TAIGA_HOST', 'https://api.taiga.io/api/v1/');
 define ('TAIGA_PROJECT', '101250');
 define ('TAIGA_USERNAME', 'username');

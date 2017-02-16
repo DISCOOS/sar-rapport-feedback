@@ -21,7 +21,7 @@
 
 <body>
 <!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -36,34 +36,25 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li>
-                    <a href="https://www.korsveien.no/sites/hjkaksjonsrapportering/default.aspx" target="_blank">Korsveien</a>
-                </li>
-                <li>
-                    <a href="http://www.hjelpekorps.org" target="_blank">Norges Røde Kors Hjelpekorps</a>
-                </li>
-		<li>
-		    <a href="https://goo.gl/zjQPzA" target="_blank">Brukerveiledning</a>
-		</li>
-		<li>
-		    <a href="https://tree.taiga.io/project/rge-sar-rapport/wiki/home" target="_blank">Spørsmål og svar</a>
-		</li>
+                <li><a href="https://www.korsveien.no/sites/hjkaksjonsrapportering/default.aspx" target="_blank">Korsveien</a></li>
+                <li><a href="http://www.hjelpekorps.org" target="_blank">Norges Røde Kors Hjelpekorps</a></li>
+                <li><a href="https://goo.gl/zjQPzA" target="_blank">Brukerveiledning</a></li>
+                <li><a href="https://tree.taiga.io/project/rge-sar-rapport/wiki/home" target="_blank">Spørsmål og svar</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container -->
-</nav>
+</div>
 
 <!-- Page Content -->
 <div class="container">
 
     <!-- Jumbotron Header -->
-    <header class="jumbotron hero-spacer">
+    <div class="jumbotron hero-spacer">
         <h1>Vi ønsker tilbakemeldinger!</h1>
-
         <p>På denne siden kan du rapportere feil, stille spørsmål, komme med forslag til forbedringer og be om bistand</p>
-    </header>
+    </div>
 
     {{ include(view) }}
 
