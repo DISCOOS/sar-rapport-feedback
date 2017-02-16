@@ -195,8 +195,13 @@ if($auth = taiga_login()) {
     <!-- Feedback form -->
     <form class="form-horizontal" role="form" method="post" action="<?php if ($issue['ref']) {echo $issue['ref'];} ?>">
         <div class="panel panel-default">
-	    <div class="panel-heading text-right">
-		<b>Status</b> <span class="label label-primary"><?=$status['name']?></span>&nbsp&nbsp<b>Ansvarlig</b> <span class="label label-primary"><?=($assigned['full_name_display'] ? $assigned['full_name_display'] : 'Ikke tildelt')?></span>
+	    <div class="panel-heading text-right">		 
+	    	<div class="pull-left text-left">
+			<b><?php=isset($id) ? 'Endre tilbakemelding' : 'Ny tilbakemelding';?></b> 
+		</div>
+	    	<div class="pull-right text-right">		 
+			<b>Status</b> <span class="label label-primary"><?=$status['name']?></span>&nbsp&nbsp<b>Ansvarlig</b> <span class="label label-primary"><?=($assigned['full_name_display'] ? $assigned['full_name_display'] : 'Ikke tildelt')?></span>
+		</div>	
 	    </div>
             <div class="panel-body">
                 <div class="form-group">
