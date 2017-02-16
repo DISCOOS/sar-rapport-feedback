@@ -307,7 +307,7 @@ if($auth = taiga_login()) {
             <div class="panel-footer">
                 <div class="form-group">
                     <div class="col-sm-12 text-right">
-                        <a href="/sar-rapport/feedback" class="btn btn-default" role="button">Ny tilbakemelding</a>
+                        <a href="/feedback/new" class="btn btn-default" role="button">Ny tilbakemelding</a>
                         <input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary">
                     </div>
                 </div>
