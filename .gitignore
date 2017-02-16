@@ -2,4 +2,5 @@ src/.idea
 src/config.php
 src/logs
 src/composer.phar
+src/twig/cache
 src/vendor/
