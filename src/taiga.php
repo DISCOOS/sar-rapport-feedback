@@ -311,6 +311,24 @@ function taiga_get_issue_comments($auth, $id)
 
 }
 
+function taiga_list_projects($auth) {
+    $process = curl_init(TAIGA_HOST . "projects");
+    curl_setopt(
+        $process,
+        CURLOPT_HTTPHEADER,
+        array(
+            'Content-Type: application/json; charset=utf-8',
+            "Authorization: Bearer $auth"
+        )
+    );
+    curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($process);
+    curl_close($process);
+    var_dump($result);
+    return $result;
+
+}
+
 function taiga_delete_project_by_id($auth, $id) {
     $process = curl_init(TAIGA_HOST . "projects/$id");
     curl_setopt(

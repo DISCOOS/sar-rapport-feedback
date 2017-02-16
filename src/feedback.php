@@ -21,6 +21,7 @@ if($auth = taiga_login()) {
 
 	//taiga_delete_project_by_slug('rge-fsor-v1')	
 	//taiga_edit_project_by_id($auth, 121064);
+        //taiga_list_projects($auth);
 	//exit;
 
 
