@@ -82,7 +82,7 @@ if($auth = taiga_login()) {
             if ($issue) {
 
                 $ref = $issue['ref'];
-		$href = "https://tree.taiga.io/project/rge-sar-rapport/issue/$href"
+		$href = "https://tree.taiga.io/project/rge-sar-rapport/issue/$href";
 
                 if($id) {
                     $comments = taiga_get_issue_comments($auth, $issue['id']);
