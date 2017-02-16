@@ -138,4 +138,9 @@ $view='feedback.form.php';
 
 require 'feedback.page.php';
 
+$loader = new Twig_Loader_Filesystem('/twig/templates');
+$twig = new Twig_Environment($loader, array(
+    'cache' => '/twig/cache',
+));
+
 ?>

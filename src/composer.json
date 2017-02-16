@@ -2,7 +2,8 @@
     "name": "kengu/sar-rapport-feedback",
     "description": "SAR-report issue and feedback site",
     "require": {
-        "swiftmailer/swiftmailer": "^5.4"
+        "swiftmailer/swiftmailer": "^5.4",
+        "twig/twig": "~1.0"
     },
     "license": "BSD 2 clause",
     "authors": [
