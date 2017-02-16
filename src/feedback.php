@@ -82,15 +82,16 @@ if($auth = taiga_login()) {
             if ($issue) {
 
                 $ref = $issue['ref'];
+		$href = "https://tree.taiga.io/project/rge-sar-rapport/issue/$href"
 
                 if($id) {
                     $comments = taiga_get_issue_comments($auth, $issue['id']);
-		    $result = 'Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert. ';
+		    $result = 'Takk! <a href="' . $href . '">Tilbakemelding ' . $href . '</a> er registrert. ';
                     $result .= 'Vi vil ta kontakt når din tilbakemelding er behandlet.';
 
                 } else {
-                    $result = 'Takk! <a href="' . $ref . '">Tilbakemelding ' . $ref . '</a> er registrert. ';
-                    if(notify('Tilbakemelding ' . $ref . ' er registrert', $email, $name, $result)) {
+                    $result = 'Takk! <a href="' . $href . '">Tilbakemelding ' . $href . '</a> er registrert. ';
+                    if(notify('Tilbakemelding ' . $href . ' er registrert', $email, $name, $result)) {
                         $result .= 'Kvittering er sendt til ' . $email . '. ';
                     }
                     $result .= 'Vi vil ta kontakt når din tilbakemelding er behandlet.';
